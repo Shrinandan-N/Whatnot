@@ -1,0 +1,27 @@
+.file-input {
+    display: inline-block;
+    position: relative;
+}
+
+.file-input button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3d006;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Futura';
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input button:hover {
+    background-color: rgb(255, 241, 113);
+}
+
+.file-input button span {
+    margin-right: 10px;
+}
