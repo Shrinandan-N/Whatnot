@@ -1,0 +1,5 @@
+myenv
+__pycache__
+config
+chromedriver_mac_arm64
+csv_maker.py
