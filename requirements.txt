@@ -17,6 +17,7 @@ imageio==2.26.0
 imageio-ffmpeg==0.4.8
 iniconfig==2.0.0
 instabot==0.117.0
+instagrapi==1.17.6
 itsdangerous==2.1.2
 Jinja2==3.1.2
 MarkupSafe==2.1.2
@@ -29,6 +30,8 @@ pandas==1.5.3
 Pillow==9.4.0
 pluggy==1.0.0
 proglog==0.1.10
+pycryptodomex==3.17
+pydantic==1.10.7
 PySocks==1.7.1
 pytest==7.2.2
 python-dateutil==2.8.2
@@ -47,6 +50,7 @@ tqdm==4.65.0
 trio==0.22.0
 trio-websocket==0.10.1
 types-PyYAML==6.0.12.8
+typing_extensions==4.5.0
 urllib3==1.26.15
 webdriver-manager==3.8.5
 Werkzeug==2.2.3

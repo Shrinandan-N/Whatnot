@@ -1,31 +1,105 @@
 <!doctype html>
 <html>
   <head>
+    <style>
+      span {text-align: center; font-family: 'Poppins'; margin-bottom: 0; margin-top: 0; font-size: xx-large;}
+      h2 {text-align: center; font-family: 'Poppins'; font-size: small;}
+      h4 {text-align: center;font-family: 'Poppins';font-size: small;}
+      script {text-align: center;}
+    </style>
     <title>Automated Instagram Messaging</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <h1>Automated Instagram Messaging</h1>
-    <form action="{{ url_for('start') }}" method="POST" enctype="multipart/form-data">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" required>
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required>
+    <p style="text-align: center;"><img src="https://res.cloudinary.com/davnbv9bv/image/upload/v1682454959/wn-mark-base_3x_2_fqo8k5.png" alt="Whatnot Logo" width="70" height="30"> 
+      <span>Whatnot | Automated Instagram Messaging</span>
+    </p> 
+    <h2>Note: In order to prevent flagging by Instagram, 1 DM is sent approximately every 5 minutes.</h2>
+    <br>
+    <form action="{{ url_for('start') }}" method="POST" enctype="multipart/form-data" style="text-align: center;">
+      <label for="username" style="font-family: 'Poppins';">Sender Username:</label>
+      <input type="text" name="username" id="username" required style="border: 1px solid black; border-radius: 2px;">
+      <label for="password" style="font-family: 'Poppins';">&nbsp;&nbsp;&nbsp;Password:</label>
+      <input type="password" name="password" id="password" required style="border: 1px solid black; border-radius: 2px;">
       <br>
-      <label for="file">Upload CSV file:</label>
+      <label for="message" style="font-family: 'Poppins';">Enter Message:</label>
+      <input type="text" name="message" id="message" required style="border: 1px solid black; border-radius: 2px;">
+      <br>
+      <label for="file" style="font-family: 'Poppins';">Upload CSV file:</label>
       <input type="file" name="file" id="file" accept=".csv" required>
-      <br>
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit" id = "submit-btn">Send Messages</button>
-    </form>
-    <p name="message-sent" id="message-sent"></p>
-    <script>
-      const submitBtn = document.getElementById('submit-btn');
-      const messageSent = document.getElementById('message-sent');
-      submitBtn.addEventListener('click', () => {
-          messageSent.innerHTML = 'Sending Messages ...';
-      });
-  </script>
+      <br>
+      <br>
+      <button type="submit" id = "submit-btn" style="border-radius: 2px solid black; width: 150px; height: 35px;font-size: medium; font-family: 'Poppins'; color: #fff351; background-color: black;">Send Messages</button>
+      <p name="message-sent" id="message-sent"></p>
+      <script>
+        const submitBtn = document.getElementById('submit-btn');
+        const messageSent = document.getElementById('message-sent');
+        submitBtn.addEventListener('click', () => {
+            messageSent.innerHTML = 'Sending Messages ...';
+
+            // Periodically request the status of the background task and update the page
+            const statusEl = document.getElementById('status');
+            const statusInterval = setInterval(function() {
+              const xhr = new XMLHttpRequest();
+              xhr.open('GET', '/status');
+              xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+              xhr.onload = function() {
+                // Update the status element with the response text
+                statusEl.innerHTML = xhr.responseText;
+              };
+              xhr.send();
+            }, 1000); // Request the status every 1 second
+
+        });
+      </script>
+      <br>
+      <div id="status">
+        <!-- Status updates will be displayed here -->
+      </div>
     
+      <!-- <script>
+        // Get the form and submit button elements
+        const form = document.getElementById('message-form');
+        const submitBtn = document.getElementById('submit-btn');
+    
+        // Add an event listener to the form submit event
+        form.addEventListener('submit', function(event) {
+          // Prevent the default form submit behavior
+          event.preventDefault();
+    
+          // Disable the submit button while the messages are being sent
+          submitBtn.disabled = true;
+    
+          // Send the form data to the server using AJAX
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', '/start');
+          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          xhr.onload = function() {
+            // Re-enable the submit button once the request is complete
+            submitBtn.disabled = false;
+          };
+          xhr.send(new FormData(form));
+    
+          // Periodically request the status of the background task and update the page
+          const statusEl = document.getElementById('status');
+          const statusInterval = setInterval(function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/status');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onload = function() {
+              // Update the status element with the response text
+              statusEl.innerHTML = xhr.responseText;
+            };
+            xhr.send();
+          }, 1000); // Request the status every 1 second
+        });
+      </script> -->
+    
+      <br>
+      <h4>Recipient usernames should be listed in first column of CSV. See example file screenshot below:</h4>
+      <img src="https://res.cloudinary.com/davnbv9bv/image/upload/v1682454917/whatnotCSVSample_mv2sln.jpg" alt="CSV file format">
+      <br>
+    </form>
   </body>
 </html>
